@@ -3,28 +3,35 @@ package com.driver.model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @Entity
+@Table(name="spot")
 public class Spot {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private  int pricePerHour;
+
     @Enumerated(EnumType.STRING)
     private SpotType spotType;
+
+    private int pricePerHour;
+
     private boolean occupied;
     @ManyToOne
     @JoinColumn
-    ParkingLot parkingLot;
-    @OneToMany(mappedBy = "spot",cascade = CascadeType.ALL)
-    List<Reservation> reservationList=new ArrayList<>();
+    private ParkingLot parkingLot;
 
-    public Spot() {
-    }
+    @OneToMany(mappedBy = "spot", cascade = CascadeType.ALL)
+    private List<Reservation> reservationList=new ArrayList<>();
 
     public Spot(int pricePerHour, SpotType spotType, boolean occupied) {
         this.spotType = spotType;
         this.pricePerHour = pricePerHour;
         this.occupied = occupied;
+    }
+
+    public Spot() {
     }
 
     public int getId() {
@@ -35,20 +42,20 @@ public class Spot {
         this.id = id;
     }
 
-    public int getPricePerHour() {
-        return pricePerHour;
-    }
-
-    public void setPricePerHour(int pricePerHour) {
-        this.pricePerHour = pricePerHour;
-    }
-
     public SpotType getSpotType() {
         return spotType;
     }
 
     public void setSpotType(SpotType spotType) {
         this.spotType = spotType;
+    }
+
+    public int getPricePerHour() {
+        return pricePerHour;
+    }
+
+    public void setPricePerHour(int pricePerHour) {
+        this.pricePerHour = pricePerHour;
     }
 
     public boolean getOccupied() {
@@ -74,4 +81,6 @@ public class Spot {
     public void setReservationList(List<Reservation> reservationList) {
         this.reservationList = reservationList;
     }
+
+
 }
