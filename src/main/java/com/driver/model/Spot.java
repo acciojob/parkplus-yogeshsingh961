@@ -9,6 +9,7 @@ public class Spot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private  int pricePerHour;
+    @Enumerated(EnumType.STRING)
     private SpotType spotType;
     private boolean occupied;
     @ManyToOne
